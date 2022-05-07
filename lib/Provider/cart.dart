@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/foundation.dart';
 
 class CartItem {
@@ -54,8 +52,45 @@ class Cart with ChangeNotifier {
     notifyListeners();
   }
 
+//addOrRemoveQuantity(String proId, bool operators) {
+//  if (_cartitems.containsKey(proId)) {
+//   _cartitems.update(
+//          proId,
+//          (existItem) => CartItem(
+//              id: existItem.id,
+//              title: existItem.title,
+//              quantity:
+//                  operators ? existItem.quantity + 1 : existItem.quantity - 1,
+//              price: existItem.price));
+//   }
+//    notifyListeners();
+//  }
+
   void removeItem(String prodId) {
     _cartitems.remove(prodId);
+    notifyListeners();
+  }
+
+  void removeSingleItem(String prodId) {
+    if (!_cartitems.containsKey(prodId)) {
+      return;
+    }
+    if (_cartitems[prodId]!.quantity > 1) {
+      _cartitems.update(
+          prodId,
+          (existingcartItem) => CartItem(
+              id: existingcartItem.id,
+              title: existingcartItem.title,
+              quantity: existingcartItem.quantity - 1,
+              price: existingcartItem.price));
+    } else {
+      _cartitems.remove(prodId);
+    }
+    notifyListeners();
+  }
+
+  void clearCart() {
+    _cartitems = {};
     notifyListeners();
   }
 }

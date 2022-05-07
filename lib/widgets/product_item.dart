@@ -10,7 +10,6 @@ class ProductItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final myproducts = Provider.of<Product>(context, listen: false);
     final cart = Provider.of<Cart>(context, listen: false);
-    print("rebuild");
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
       child: GridTile(
@@ -21,14 +20,17 @@ class ProductItem extends StatelessWidget {
               arguments: myproducts.id,
             );
           },
-          child: Image.network(
-            myproducts.imageUrl,
-            fit: BoxFit.cover,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 0),
+            child: Image.network(
+              myproducts.imageUrl,
+              fit: BoxFit.cover,
+            ),
           ),
         ),
         footer: SingleChildScrollView(
           child: GridTileBar(
-            backgroundColor: Colors.black87,
+            backgroundColor: Colors.black87.withOpacity(0.4),
             leading: Consumer<Product>(
               builder: (ctx, prods, child) => SizedBox(
                 width: 40,
@@ -56,6 +58,22 @@ class ProductItem extends StatelessWidget {
               ),
               onPressed: () {
                 cart.addItem(myproducts.id, myproducts.price, myproducts.title);
+                // ignore: deprecated_member_use
+                Scaffold.of(context).hideCurrentSnackBar();
+                Scaffold.of(context).showSnackBar(SnackBar(
+                  content: Text(
+                    'Added item to cart!',
+                    style: TextStyle(color: Colors.white),
+                    //textAlign: TextAlign.center,
+                  ),
+                  backgroundColor: Colors.black,
+                  action: SnackBarAction(
+                      label: 'UNDO',
+                      onPressed: () {
+                        cart.removeSingleItem(myproducts.id);
+                      }),
+                  duration: Duration(seconds: 2),
+                ));
               },
               color: Theme.of(context).colorScheme.secondary,
             ),
