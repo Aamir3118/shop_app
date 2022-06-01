@@ -22,10 +22,17 @@ class ProductItem extends StatelessWidget {
           },
           child: Padding(
             padding: const EdgeInsets.only(top: 0),
-            child: Image.network(
-              myproducts.imageUrl,
-              fit: BoxFit.cover,
-            ),
+            child: Container(
+                decoration: BoxDecoration(
+              image: DecorationImage(
+                  fit: BoxFit.fill,
+                  image: NetworkImage(
+                    myproducts.imageUrl,
+                  )
+                  // scale: 1.0,
+                  //fit: BoxFit.cover,
+                  ),
+            )),
           ),
         ),
         footer: SingleChildScrollView(
