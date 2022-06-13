@@ -22,7 +22,7 @@ class _OrderItemState extends State<OrderItem> {
       child: Column(
         children: [
           ListTile(
-            title: Text('\$${widget.order.amount}'),
+            title: Text(('\$${widget.order.amount.toStringAsFixed(2)}')),
             subtitle:
                 Text(DateFormat('dd/MM/yyyy').format(widget.order.dateTime)),
             trailing: IconButton(
@@ -44,7 +44,7 @@ class _OrderItemState extends State<OrderItem> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              prod.title,
+                              prod.title.toString(),
                               style: TextStyle(
                                   fontSize: 18, fontWeight: FontWeight.bold),
                             ),

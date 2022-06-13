@@ -5,8 +5,7 @@ import 'package:shop/Provider/products.dart';
 import 'package:shop/screens/cart_screen.dart';
 import 'package:shop/widgets/app_drawer.dart';
 import 'package:shop/widgets/badge.dart';
-
-import '../Provider/product.dart';
+import 'package:shimmer/shimmer.dart';
 import '../widgets/product_item.dart';
 
 enum FilterOptions {
@@ -38,6 +37,10 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
       _isInit = false;
       super.didChangeDependencies();
     }
+  }
+
+  Future<void> _refreshProducts(BuildContext context) async {
+    await Provider.of<Products>(context, listen: false).fetchAndSetProducts();
   }
 
   @override
@@ -83,11 +86,15 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
         ],
       ),
       drawer: AppDrawer(),
-      body: _isLoading
-          ? Center(
-              child: CircularProgressIndicator(),
-            )
-          : ProductGrid(_showFavoritesOnly),
+      body: RefreshIndicator(
+        onRefresh: () => _refreshProducts(context),
+        child: _isLoading
+            ? Shimmer.fromColors(
+                child: ProductGrid(_showFavoritesOnly),
+                baseColor: Colors.grey.shade400,
+                highlightColor: Colors.grey.shade100)
+            : ProductGrid(_showFavoritesOnly),
+      ),
     );
   }
 }

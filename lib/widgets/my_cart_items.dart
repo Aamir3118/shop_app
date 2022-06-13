@@ -1,6 +1,3 @@
-// ignore_for_file: deprecated_member_use
-
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop/Provider/cart.dart';

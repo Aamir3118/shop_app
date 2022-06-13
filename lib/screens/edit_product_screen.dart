@@ -47,8 +47,8 @@ class _EditProductScreenState extends State<EditProductScreen> {
         _existingEditedProduct = Provider.of<Products>(context, listen: false)
             .findById(productId as String);
         _initValues = {
-          'title': _existingEditedProduct.title as String,
-          'description': _existingEditedProduct.description as String,
+          'title': _existingEditedProduct.title,
+          'description': _existingEditedProduct.description,
           'price': _existingEditedProduct.price.toString(),
           'imageUrl': '',
         };
