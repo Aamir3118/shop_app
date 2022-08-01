@@ -57,8 +57,8 @@ class Auth with ChangeNotifier {
   }*/
 
   Future<void> signup(String email, String password) async {
-    final url = Uri.parse(
-        'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCvZ_XBt6bMATPLx0ZSb8cW_sh3hnJj50c');
+    // final url = Uri.parse(
+    //   'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCvZ_XBt6bMATPLx0ZSb8cW_sh3hnJj50c');
     try {
       final response = await http.post(url,
           body: json.encode({
@@ -92,8 +92,8 @@ class Auth with ChangeNotifier {
   }
 
   Future<void> login(String email, String password) async {
-    final url = Uri.parse(
-        'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCvZ_XBt6bMATPLx0ZSb8cW_sh3hnJj50c');
+    //  final url = Uri.parse(
+    //    'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCvZ_XBt6bMATPLx0ZSb8cW_sh3hnJj50c');
     try {
       final response = await http.post(url,
           body: json.encode({
